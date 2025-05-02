@@ -1,6 +1,6 @@
 # 🛒 Nova Store - Frontend
 
-Bienvenido al repositorio frontend de **Nova Store**, una tienda virtual moderna que permite a usuarios explorar productos, hacer compras y a administradores gestionar el catálogo de manera eficiente.
+Bienvenido al repositorio frontend de **NovaShop**, una tienda virtual moderna que permite a usuarios explorar productos, hacer compras y a administradores gestionar el catálogo de manera eficiente.
 
 ---
 
