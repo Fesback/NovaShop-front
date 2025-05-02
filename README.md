@@ -1,70 +1,167 @@
-# Getting Started with Create React App
+# 🛒 Nova Store - Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Bienvenido al repositorio frontend de **Nova Store**, una tienda virtual moderna que permite a usuarios explorar productos, hacer compras y a administradores gestionar el catálogo de manera eficiente.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🔐 Autenticación y Autorización
 
-### `npm start`
+- **Login/Registro**: Formularios que envían datos vía `POST` a `/auth/register` o `/auth/login`.
+- **JWT Token**: Al autenticarse con éxito, el token se guarda (idealmente en cookies httpOnly o en `localStorage`).
+- **Redirección**: Usuarios son redirigidos a su panel o homepage según rol.
+- **Estado global**: Datos del usuario se almacenan en Context API o Redux.
+- **Rutas protegidas**:
+  - `PrivateRoute` para proteger rutas como `/carrito`, `/pedidos` y `/admin`.
+  - Se ocultan o muestran elementos del Navbar y la UI según el rol (`USER` o `ADMIN`).
+  - Tokens expirados detectan error 401 y redirigen automáticamente al login.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🛍️ Módulos de la Aplicación
 
-### `npm test`
+### 1. 🏠 Home Page (público general)
+- 4 Cards grandes con las categorías principales: **Laptops**, **Tablets**, **Celulares**, **Accesorios**.
+- Navbar con botones condicionales de **Login/Registro**.
+- Footer general.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 2. 🗂️ Página de Categoría
+- Cards de productos con imagen, nombre y precio.
+- Filtros: categoría, precio, nombre.
+- Sidebar colapsable + paginación.
 
-### `npm run build`
+### 3. 🔍 Detalle del Producto
+- Imagen destacada + galería.
+- Descripción corta y larga.
+- Selector de cantidad.
+- Botón "Agregar al carrito" (requiere sesión iniciada).
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🛒 Carrito de Compras (solo logueados)
+- Icono con contador dinámico.
+- Página dedicada:
+  - Lista de productos.
+  - Subtotal, impuestos y total.
+  - Validación de stock en tiempo real.
+  - Botón "Pagar".
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## 💳 Proceso de Pago
+- Formulario con campos: nombre, dirección, etc.
+- Resumen del pedido.
+- Botón de confirmación.
+- Página de éxito con descarga de **boleta PDF**.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 📦 Pedidos (usuarios)
+- Historial personal con estados: `Pendiente`, `Enviado`, `Entregado`.
+- Filtros por estado o fecha.
+- Descarga de boleta.
+- (Opcional) Seguimiento vía mapa.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 🛠️ Dashboard de Administración (rol ADMIN)
+- Estadísticas generales.
+- Gestión de productos:
+  - Tabla editable con validaciones.
+- Gestión de categorías:
+  - CRUD básico.
+- Gestión de pedidos:
+  - Cambios de estado por drag & drop.
+  - Vista detallada con generación de boletas.
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 🔄 Estado Global y Persistencia
+- **Carrito**: sincronizado con el backend, guardado en `localStorage`.
+- **Usuario**: mantiene JWT, perfil y rol persistente.
+- **Pedidos**: se pueden cachear para mejorar rendimiento.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
 
-### Code Splitting
+## 🚨 Seguridad y Manejo de Errores
+- Formularios con mensajes claros.
+- Uso de toasts para feedback inmediato.
+- Redirecciones automáticas para errores: `401`, `403`, `404`, `500`.
+- Protección XSS y CSRF si se usa `localStorage`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+---
 
-### Analyzing the Bundle Size
+## 🧩 Buenas Prácticas UI
+- Componentes reutilizables: cards, botones, inputs, modales.
+- Responsive Design: 📱 primero mobile.
+- Lazy loading para imágenes y listados.
+- Prefetching al hacer hover sobre productos.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+---
 
-### Making a Progressive Web App
+## 🧭 Flujo de Usuario
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+| Rol       | Acciones Posibles                                                                 |
+|-----------|-----------------------------------------------------------------------------------|
+| Invitado  | Navega productos, explora categorías, ve detalles.                              |
+| Usuario   | Agrega al carrito, realiza pagos, revisa historial de pedidos.                  |
+| Admin     | Gestiona productos, categorías, pedidos y estadísticas.                         |
 
-### Advanced Configuration
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## 🚀 Tecnologías Usadas
 
-### Deployment
+- **React.js**
+- **React Router**
+- **Context API / Redux** (según implementación)
+- **CSS Modules / Tailwind / Styled Components** (según setup)
+- **Axios / Fetch API**
+- **Vite / Webpack** (dependiendo del bundler)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+---
 
-### `npm run build` fails to minify
+## 📁 Estructura 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```
+src/
+├── App.jsx 🧭
+│   Archivo raíz de la aplicación. Configura rutas y layout principal.
+│
+├── assets/ 📸
+│   Imágenes, íconos y otros recursos estáticos (logos, banners, etc.).
+│
+├── components/ 🧩
+│   Componentes reutilizables en distintas partes de la app:
+│   ├── AdminRoute.jsx        🔐 Ruta protegida para administradores.
+│   ├── CartIcon.jsx          🛒 Icono del carrito con contador.
+│   ├── Navbar.jsx            🧭 Barra de navegación superior.
+│   ├── ProductCard.jsx       📦 Card para mostrar productos.
+│   ├── ProtectedRoute.jsx    🛡️ Ruta protegida para usuarios logueados.
+│   └── UserRoute.jsx         👤 Ruta protegida para usuarios normales.
+│
+├── context/ 🧠
+│   Manejadores de estado global mediante React Context API:
+│   ├── AuthContext.jsx       🔐 Manejo de login, logout y sesión del usuario.
+│   └── CartContext.jsx       🛒 Control del estado del carrito de compras.
+│
+├── hooks/ 🪝
+│   Custom hooks reutilizables (por ejemplo: `useAuth`, `useFetch`, etc.).
+│   (Aquí puedes crear archivos como `useAuth.js`, `useCart.js`, etc.)
+│
+├── pages/ 📄
+│   Vistas principales renderizadas en el router:
+│   ├── AdminPanel.jsx        ⚙️ Panel de control del administrador.
+│   ├── CategoryPage.jsx      📁 Productos filtrados por categoría.
+│   ├── Home.jsx              🏠 Página de inicio.
+│   ├── Login.jsx             🔑 Formulario de ingreso.
+│   ├── ProductList.jsx       🛍️ Listado de productos (con filtros).
+│   ├── Register.jsx          📝 Formulario de registro.
+│   └── UserPanel.jsx         👤 Panel de usuario con historial de pedidos.
+│
+├── services/ 🔧
+│   Funciones para consumir APIs:
+│   ├── api.js                🌐 Configuración base de Axios.
+│   └── productService.js     📦 Funciones para obtener/crear productos.
+│
+└── styles/ 🎨
+    └── global.css            💅 Estilos globales compartidos en toda la app.
+```
