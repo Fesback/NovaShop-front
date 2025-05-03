@@ -31,7 +31,7 @@ const CartPage = () => {
             </thead>
             <tbody>
               {cartItems.map((item) => (
-                <tr key={item.idProducto}>
+                <tr key={item.idItem}>
                   <td>{item.nombreProducto || "Producto sin nombre"}</td>
                   <td>S/. {Number(item.precioUnitario).toFixed(2)}</td>
                   <td>
@@ -40,7 +40,7 @@ const CartPage = () => {
                       min="1"
                       value={item.cantidad}
                       onChange={(e) =>
-                        updateQuantity(item.idProducto, parseInt(e.target.value) || 1)
+                        updateQuantity(item.idItem, parseInt(e.target.value) || 1)
                       }
                     />
                   </td>
@@ -48,7 +48,7 @@ const CartPage = () => {
                   <td>
                     <button
                       className="remove-btn"
-                      onClick={() => removeFromCart(item.idProducto)}
+                      onClick={() => removeFromCart(item.idItem)}
                     >
                       ✖
                     </button>
@@ -59,7 +59,7 @@ const CartPage = () => {
           </table>
 
           <div className="cart-summary">
-            <h3>Total: S/. {cartTotal ? cartTotal.toFixed(2) : "0.00"}</h3>
+          <h3>Total: S/. {!isNaN(cartTotal) ? cartTotal.toFixed(2) : "0.00"}</h3>
             <button className="clear-btn" onClick={clearCart}>
               Vaciar Carrito
             </button>
@@ -70,4 +70,4 @@ const CartPage = () => {
   );
 };
 
-export default CartPage;
+export default CartPage; // ✅ Debe estar al final

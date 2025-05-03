@@ -3,23 +3,22 @@ import { createContext, useContext, useState, useEffect } from "react";
 const CartContext = createContext();
 
 export function CartProvider({ children }) {
-  const [cartItems, setCartItems] = useState([]); // Asegúrate de que sea un array
+  const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
     const savedCart = localStorage.getItem("cart");
     if (savedCart) {
       try {
         const parsedCart = JSON.parse(savedCart);
-        // Verifica si parsedCart es un array antes de establecerlo
         if (Array.isArray(parsedCart)) {
           setCartItems(parsedCart);
         } else {
           console.error("El carrito guardado no es un array válido.");
-          setCartItems([]); // O manejar de otro modo si no es un array
+          setCartItems([]);
         }
       } catch (error) {
         console.error("Error al parsear el carrito desde localStorage:", error);
-        setCartItems([]); // O manejar de otro modo si hay un error en el parseo
+        setCartItems([]);
       }
     }
   }, []);
@@ -28,105 +27,103 @@ export function CartProvider({ children }) {
     localStorage.setItem("cart", JSON.stringify(cartItems));
   }, [cartItems]);
 
-  
+  const authHeader = () => {
+    const token = localStorage.getItem("token");
+    return token ? { "Authorization": `Bearer ${token}` } : {};
+  };
+
   const addToCart = async (product) => {
-    // 1. Validar que el producto tenga ID
     if (!product?.id) {
       console.error("❌ El producto no tiene ID:", product);
       alert("Error: El producto no tiene un ID válido");
       return;
     }
-  
-    // 2. Validar precio
+
     if (typeof product.precio !== "number" || product.precio <= 0) {
       console.error("❌ Precio inválido:", product.precio);
       return;
     }
-  
-    // 3. Verificar token
+
     const token = localStorage.getItem("token");
     if (!token) {
       alert("Debes iniciar sesión para añadir productos");
       return;
     }
-  
+
     try {
-      // 4. Log para verificar el ID
-      console.log("🛒 Enviando producto al carrito. ID:", product.id, "Cuerpo completo:", product);
-  
       const response = await fetch("http://localhost:8080/api/carrito/item", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`,
+          ...authHeader(),
         },
         body: JSON.stringify({
-          idProducto: product.id, // ✅ Asegúrate de que product.id sea un número
+          idProducto: product.id,
           cantidad: 1,
         }),
       });
-  
-      // 5. Manejar errores HTTP
+
       if (!response.ok) {
         const errorText = await response.text();
         throw new Error(`Error ${response.status}: ${errorText}`);
       }
-  
-      // 6. Procesar respuesta
-      const data = await response.json();
-console.log("✅ Respuesta del backend:", data);
 
-if (Array.isArray(data.items)) {
-  setCartItems(data.items); // ✅ Solo los items del carrito
-} else {
-  console.error("❌ Respuesta inesperada del backend:", data);
-}
-  
+      const data = await response.json();
+      console.log("✅ Respuesta del backend:", data);
+
+      if (Array.isArray(data.items)) {
+        setCartItems(data.items);
+      } else {
+        console.error("❌ Respuesta inesperada del backend:", data);
+      }
+
     } catch (error) {
       console.error("🚨 Error al agregar al carrito:", error);
       alert(error.message);
     }
   };
 
-  const removeFromCart = async (productId) => {
+  const removeFromCart = async (idItem) => {
     try {
-      const response = await fetch(`http://localhost:8080/api/carrito/item/${productId}`, {
+      const response = await fetch(`http://localhost:8080/api/carrito/item/${idItem}`, {
         method: "DELETE",
+        headers: {
+          ...authHeader(),
+        },
       });
-      const data = await response.json();
+
       if (response.ok) {
-        setCartItems(data);
+        setCartItems(prevItems => prevItems.filter(item => item.idItem !== idItem));
       } else {
-        console.error("Error al eliminar del carrito:", data.message);
+        const errorText = await response.text();
+        throw new Error(`Error al eliminar: ${errorText}`);
       }
     } catch (error) {
-      console.error("Error en la petición al backend:", error);
+      console.error("Error al eliminar del carrito:", error);
+      alert(error.message);
     }
   };
-
-  const updateQuantity = async (productId, newQuantity) => {
+  
+  const updateQuantity = async (idItem, newQuantity) => {
     try {
-      const token = localStorage.getItem("token");
-      const response = await fetch(`http://localhost:8080/api/carrito/item`, {
+      const response = await fetch(`http://localhost:8080/api/carrito/item/${idItem}?cantidad=${newQuantity}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`,
+          ...authHeader(),
         },
-        body: JSON.stringify({
-          idProducto: productId,
-          cantidad: newQuantity,
-        }),
       });
 
-      const data = await response.json();
       if (response.ok) {
+        const data = await response.json();
         setCartItems(data);
       } else {
-        console.error("Error al actualizar la cantidad:", data.message);
+        const errorText = await response.text();
+        throw new Error(`Error al actualizar: ${errorText}`);
       }
     } catch (error) {
       console.error("Error en la petición al backend:", error);
+      alert(error.message);
     }
   };
 
@@ -134,20 +131,35 @@ if (Array.isArray(data.items)) {
     try {
       const response = await fetch("http://localhost:8080/api/carrito", {
         method: "DELETE",
+        headers: {
+          ...authHeader(),
+        },
       });
-      const data = await response.json();
+
       if (response.ok) {
-        setCartItems([]);
+        setCartItems([]); 
       } else {
-        console.error("Error al vaciar el carrito:", data.message);
+        const errorText = await response.text();
+        throw new Error(`Error al vaciar: ${errorText}`);
       }
     } catch (error) {
       console.error("Error en la petición al backend:", error);
+      alert(error.message);
     }
   };
 
-  const cartCount = Array.isArray(cartItems) ? cartItems.reduce((total, item) => total + (item.cantidad || 0), 0) : 0;
-  const cartTotal = Array.isArray(cartItems) ? cartItems.reduce((total, item) => total + (item.precio * item.cantidad), 0) : 0;
+  // CÁLCULOS CORREGIDOS
+  const cartCount = Array.isArray(cartItems) 
+    ? cartItems.reduce((total, item) => total + (Number(item.cantidad) || 0), 0) 
+    : 0;
+
+  const cartTotal = Array.isArray(cartItems) 
+    ? cartItems.reduce((total, item) => {
+        const precio = Number(item.precioUnitario) || 0;
+        const cantidad = Number(item.cantidad) || 0;
+        return total + (precio * cantidad);
+      }, 0) 
+    : 0;
 
   return (
     <CartContext.Provider
@@ -173,4 +185,3 @@ export const useCart = () => {
   }
   return context;
 };
-
