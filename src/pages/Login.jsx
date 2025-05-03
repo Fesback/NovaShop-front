@@ -22,7 +22,13 @@ function Login() {
 
       if (response.ok) {
         const { token } = await response.json();
+        
+        // Guardamos el token en localStorage
+        localStorage.setItem("token", token);
+
+        // También lo pasamos al contexto de autenticación
         login(token);
+
         navigate("/");
       } else {
         const errorData = await response.json();

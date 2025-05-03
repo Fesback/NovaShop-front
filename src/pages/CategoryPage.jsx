@@ -1,38 +1,29 @@
 import { useEffect, useState } from 'react';
-import { useParams, Navigate } from 'react-router-dom';
-import { fetchProductsByCategoryId } from '../services/productService';
+import { useParams } from 'react-router-dom';
+import { fetchProductsByCategory } from '../services/productService';
 import ProductCard from '../components/ProductCard';
 
-const CATEGORY_IDS = {
-  laptops: 1,
-  tablets: 2,
-  celulares: 3,
-  accesorios: 4
-};
-
 function CategoryPage() {
-  const { categorySlug } = useParams();
+  const { categorySlug } = useParams(); // Ej: 'laptops'
   const [products, setProducts] = useState([]);
-
-  const categoryId = CATEGORY_IDS[categorySlug];
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadProducts = async () => {
-      if (!categoryId) return; // Evita fetch innecesario
       try {
-        const data = await fetchProductsByCategoryId(categoryId);
+        const data = await fetchProductsByCategory(categorySlug);
         setProducts(data);
       } catch (error) {
-        console.error("Error al cargar productos:", error);
+        console.error("Error:", error);
+        setProducts([]);
+      } finally {
+        setLoading(false);
       }
     };
     loadProducts();
-  }, [categoryId]);
+  }, [categorySlug]);
 
-  // Redirige SOLO aquí, no arriba
-  if (!categoryId) {
-    return <Navigate to="/" />;
-  }
+  if (loading) return <div>Cargando...</div>;
 
   return (
     <div className="category-page">
@@ -40,7 +31,7 @@ function CategoryPage() {
       {products.length > 0 ? (
         <div className="products-grid">
           {products.map(product => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard key={product.idProducto} product={product} />
           ))}
         </div>
       ) : (
