@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { CartProvider } from "./context/CartContext"; // Importar el CartProvider
+import { CartProvider } from "./context/CartContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -9,12 +9,14 @@ import UserPanel from "./pages/UserPanel";
 import AdminPanel from "./pages/AdminPanel";
 import ProductList from "./pages/ProductList";
 import CategoryPage from "./pages/CategoryPage";
-import CartPage from "./pages/CartPage"; // ✅ Importar CartPage
+import CartPage from "./pages/CartPage";
+import CheckoutPage from "./pages/CheckoutPage";  // Nuevo componente
+import PaymentConfirmation from "./pages/PaymentConfirmation";  // Nuevo componente
 
 function App() {
   return (
     <BrowserRouter>
-      <CartProvider> {/* Aquí envolvemos toda la app con el CartProvider */}
+      <CartProvider>
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -22,7 +24,11 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/productos" element={<ProductList />} />
           <Route path="/categoria/:categorySlug" element={<CategoryPage />} />
-          <Route path="/cart" element={<CartPage />} /> {/* Ruta del carrito */}
+          <Route path="/cart" element={<CartPage />} />
+          
+          {/* Nuevas rutas */}
+          <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/confirmacion-pago" element={<PaymentConfirmation />} />
 
           {/* Rutas protegidas */}
           <Route

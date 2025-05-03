@@ -1,5 +1,6 @@
 import React from "react";
 import { useCart } from "../context/CartContext";
+import { useNavigate } from "react-router-dom";
 import "../styles/CartPage.css";
 
 const CartPage = () => {
@@ -10,6 +11,8 @@ const CartPage = () => {
     clearCart,
     cartTotal
   } = useCart();
+  
+  const navigate = useNavigate();
 
   return (
     <div className="cart-page">
@@ -59,10 +62,19 @@ const CartPage = () => {
           </table>
 
           <div className="cart-summary">
-          <h3>Total: S/. {!isNaN(cartTotal) ? cartTotal.toFixed(2) : "0.00"}</h3>
-            <button className="clear-btn" onClick={clearCart}>
-              Vaciar Carrito
-            </button>
+            <h3>Total: S/. {!isNaN(cartTotal) ? cartTotal.toFixed(2) : "0.00"}</h3>
+            <div className="cart-actions">
+              <button className="clear-btn" onClick={clearCart}>
+                Vaciar Carrito
+              </button>
+              <button 
+                className="checkout-btn" 
+                onClick={() => navigate('/checkout')}
+                disabled={cartItems.length === 0}
+              >
+                Proceder al Pago
+              </button>
+            </div>
           </div>
         </>
       )}
@@ -70,4 +82,4 @@ const CartPage = () => {
   );
 };
 
-export default CartPage; // ✅ Debe estar al final
+export default CartPage;
