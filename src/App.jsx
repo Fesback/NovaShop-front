@@ -12,6 +12,7 @@ import CategoryPage from "./pages/CategoryPage";
 import CartPage from "./pages/CartPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import PaymentConfirmation from "./pages/PaymentConfirmation";
+import Footer from "./components/Footer";
 
 // Componente que encapsula las rutas + lógica de ocultar el Navbar
 function AppContent() {
@@ -19,6 +20,7 @@ function AppContent() {
 
   // Rutas donde NO se mostrará el Navbar
   const hideNavbarRoutes = ["/login", "/register"];
+  const hideFooterRoutes = ["/login", "/register"];
 
   return (
     <>
@@ -52,6 +54,8 @@ function AppContent() {
           }
         />
       </Routes>
+
+      {!hideFooterRoutes.includes(location.pathname) && <Footer />}
     </>
   );
 }

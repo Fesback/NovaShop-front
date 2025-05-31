@@ -6,7 +6,7 @@ export const fetchProducts = async () => {
 
 
 export const fetchProductsByCategoryId = async (categoryId) => {
-    const response = await fetch(`http://localhost:3000/api/products?categoryId=${categoryId}`); // ¡Usa TU URL correcta!
+    const response = await fetch(`http://localhost:3000/api/products?categoryId=${categoryId}`); 
     if (!response.ok) throw new Error('Error al obtener productos');
     return await response.json();
   };
