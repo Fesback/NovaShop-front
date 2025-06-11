@@ -5,9 +5,9 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer-container">
         <div className="footer-left">
-          <h2 className="footer-brand">cyber</h2>
+          <h2 className="footer-brand">NovaShop</h2>
           <p className="footer-description">
-            We are a residential interior design firm located in Portland. Our boutique-studio offers more than
+            Somos una empresa dedicada a ofrecer productos de alta calidad a precios competitivos. Ofrecemos una amplia gama de productos, donde la calidad y la satisfacción del cliente son nuestra prioridad.
           </p>
           <div className="footer-social">
             <a href="/" className="social-link" aria-label="Twitter">
@@ -35,7 +35,7 @@ const Footer = () => {
 
         <div className="footer-right">
           <div className="footer-column">
-            <h3 className="footer-column-title">Services</h3>
+            <h3 className="footer-column-title">Servicios</h3>
             <ul className="footer-links">
               <li>
                 <a href="/">Bonus program</a>
@@ -59,25 +59,25 @@ const Footer = () => {
           </div>
 
           <div className="footer-column">
-            <h3 className="footer-column-title">Assistance to the buyer</h3>
+            <h3 className="footer-column-title">Asistencia al comprador</h3>
             <ul className="footer-links">
               <li>
-                <a href="/">Find an order</a>
+                <a href="/">Buscar una orden</a>
               </li>
               <li>
-                <a href="/">Terms of delivery</a>
+                <a href="/">Terminos de envio</a>
               </li>
               <li>
-                <a href="/">Exchange and return of goods</a>
+                <a href="/">Cambio y devolucion de mercancias</a>
               </li>
               <li>
-                <a href="/">Guarantee</a>
+                <a href="/">Garantia</a>
               </li>
               <li>
-                <a href="/">Frequently asked questions</a>
+                <a href="/">Preguntas frecuentes</a>
               </li>
               <li>
-                <a href="/">Terms of use of the site</a>
+                <a href="/">Condiciones de uso de la pagina</a>
               </li>
             </ul>
           </div>

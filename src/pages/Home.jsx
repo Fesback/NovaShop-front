@@ -4,8 +4,6 @@ import IphoneImage from "../assets/Iphone-Imag-two.png"
 import MackBook from "../assets/MacBook.png"
 import PlayStation from "../assets/PlayStation.png"
 import Airpods from "../assets/airpods.png"
-import iwatchBanner from "../assets/apple-banner.PNG"
-import ipadBanner from "../assets/ipad-banner.PNG"
 
 function Home() {
 
@@ -265,14 +263,12 @@ function Home() {
       </section>
 
       {/* Big Summer Sale */}
-      <section className="sale-banner">
-        <img src={ipadBanner} alt="Big Summer Sale" className="sale-image" />
-        <img src={iwatchBanner} alt="Big Summer Sale" className="sale-image" />
-        <div className="sale-content">
-          <h2 className="sale-title">
-            Big Summer <span>Sale</span>
-          </h2>
-          <p className="sale-subtitle">Up to 50% off on selected items</p>
+        <section className="sale-banner">
+          <div className="sale-content">
+            <h2 className="sale-title">
+              Big Summer <span>Sale</span>
+            </h2>
+            <p className="sale-subtitle">Up to 50% off on selected items</p>
           <div className="home-button">
             <button className="sale-btn">Shop Now</button>
           </div>
