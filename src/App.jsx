@@ -6,13 +6,13 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Navbar from "./components/Navbar";
 import UserPanel from "./pages/UserPanel";
-import AdminPanel from "./pages/AdminPanel";
 import ProductList from "./pages/ProductList";
 import CategoryPage from "./pages/CategoryPage";
 import CartPage from "./pages/CartPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import PaymentConfirmation from "./pages/PaymentConfirmation";
 import Footer from "./components/Footer";
+import AdminLayout from "./components/AdminLayout";
 
 // Componente que encapsula las rutas + lógica de ocultar el Navbar
 function AppContent() {
@@ -45,14 +45,20 @@ function AppContent() {
             </ProtectedRoute>
           }
         />
+
+        {/* RUTAS PROTEGIDAS ADMIN CON LAYOUT */}
+
         <Route
           path="/admin"
           element={
             <ProtectedRoute role="admin">
-              <AdminPanel />
+              <AdminLayout />
             </ProtectedRoute>
           }
         />
+
+        {/* AQUI IRAN LAS DEMAS RUTAS DE TODOS LOS CRUDS */}
+
       </Routes>
 
       {!hideFooterRoutes.includes(location.pathname) && <Footer />}

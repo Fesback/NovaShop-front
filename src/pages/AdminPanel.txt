@@ -1,0 +1,333 @@
+import { useEffect, useState } from "react"
+import { jwtDecode } from "jwt-decode"
+import { useNavigate } from "react-router-dom"
+import AdminSidebar from "../components/AdminSidebar"
+import "../styles/AdminPanel.css"
+
+function AdminPanel() {
+  const [nombre, setNombre] = useState("")
+  const [activeSection, setActiveSection] = useState("dashboard")
+  const [activeSubSection, setActiveSubSection] = useState("")
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const token = localStorage.getItem("token")
+    if (token) {
+      try {
+        const decoded = jwtDecode(token)
+
+        // Si el backend no manda "nombre", usamos el correo (sub)
+        const correo = decoded.sub || "admin@correo.com"
+        const nombreExtraido = correo.split("@")[0] // saca la parte antes del @
+        const nombreFormateado = nombreExtraido.charAt(0).toUpperCase() + nombreExtraido.slice(1)
+
+        setNombre(decoded.nombre || nombreFormateado)
+      } catch (error) {
+        console.error("Token inválido", error)
+        navigate("/login")
+      }
+    } else {
+      navigate("/login")
+    }
+  }, [navigate])
+
+  const handleLogout = () => {
+    localStorage.removeItem("token") // Elimina el token del localStorage
+    navigate("/login") // Redirige al login
+  }
+
+  const handleMenuClick = (section, subSection = "") => {
+    setActiveSection(section)
+    setActiveSubSection(subSection)
+  }
+
+  const renderContent = () => {
+    const sectionKey = `${activeSection}-${activeSubSection}`
+
+    switch (sectionKey) {
+      case "dashboard-analytics":
+        return (
+          <div className="content-section">
+            <div className="welcome-header">
+              <h1>Analytics Dashboard</h1>
+              <p>Métricas clave y análisis de rendimiento</p>
+            </div>
+
+            <div className="stats-grid">
+              <div className="stat-card">
+                <div className="stat-icon">💰</div>
+                <div className="stat-content">
+                  <h3>$45,230</h3>
+                  <p>Ventas Totales</p>
+                  <span className="stat-change positive">+12.5%</span>
+                </div>
+              </div>
+              <div className="stat-card">
+                <div className="stat-icon">👥</div>
+                <div className="stat-content">
+                  <h3>1,234</h3>
+                  <p>Usuarios Activos</p>
+                  <span className="stat-change positive">+8.2%</span>
+                </div>
+              </div>
+              <div className="stat-card">
+                <div className="stat-icon">📦</div>
+                <div className="stat-content">
+                  <h3>89</h3>
+                  <p>Pedidos Hoy</p>
+                  <span className="stat-change negative">-3.1%</span>
+                </div>
+              </div>
+              <div className="stat-card">
+                <div className="stat-icon">⭐</div>
+                <div className="stat-content">
+                  <h3>4.8</h3>
+                  <p>Rating Promedio</p>
+                  <span className="stat-change positive">+0.3</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="charts-grid">
+              <div className="chart-card">
+                <h3>Ventas por Mes</h3>
+                <div className="chart-placeholder">
+                  <p>Gráfico de ventas mensuales</p>
+                </div>
+              </div>
+              <div className="chart-card">
+                <h3>Productos Más Vendidos</h3>
+                <div className="chart-placeholder">
+                  <p>Top 5 productos</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )
+
+      case "dashboard-mainpanel":
+        return (
+          <div className="content-section">
+            <div className="welcome-header">
+              <h1>Bienvenido, Admin {nombre} 👑</h1>
+              <p>Panel principal de administración. Control total del sistema.</p>
+            </div>
+
+            <div className="quick-actions">
+              <h2>Acciones Rápidas</h2>
+              <div className="actions-grid">
+                <button className="action-btn" onClick={() => handleMenuClick("productos", "agregar")}>
+                  <span className="action-icon">➕</span>
+                  <span>Agregar Producto</span>
+                </button>
+                <button className="action-btn" onClick={() => handleMenuClick("usuarios", "crear")}>
+                  <span className="action-icon">👤</span>
+                  <span>Crear Usuario</span>
+                </button>
+                <button className="action-btn" onClick={() => handleMenuClick("pedidos", "listar")}>
+                  <span className="action-icon">📋</span>
+                  <span>Ver Pedidos</span>
+                </button>
+                <button className="action-btn" onClick={() => handleMenuClick("config", "envios")}>
+                  <span className="action-icon">⚙️</span>
+                  <span>Configurar</span>
+                </button>
+              </div>
+            </div>
+
+            <div className="recent-activity">
+              <h2>Actividad Reciente</h2>
+              <div className="activity-list">
+                <div className="activity-item">
+                  <div className="activity-icon">👤</div>
+                  <div className="activity-content">
+                    <p>
+                      <strong>Nuevo usuario registrado:</strong> juan@email.com
+                    </p>
+                    <span className="activity-time">Hace 5 minutos</span>
+                  </div>
+                </div>
+                <div className="activity-item">
+                  <div className="activity-icon">📦</div>
+                  <div className="activity-content">
+                    <p>
+                      <strong>Pedido #1245</strong> marcado como enviado
+                    </p>
+                    <span className="activity-time">Hace 15 minutos</span>
+                  </div>
+                </div>
+                <div className="activity-item">
+                  <div className="activity-icon">💰</div>
+                  <div className="activity-content">
+                    <p>
+                      <strong>Pago recibido:</strong> $299.99
+                    </p>
+                    <span className="activity-time">Hace 1 hora</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )
+
+      case "productos-listar":
+        return (
+          <div className="content-section">
+            <div className="section-header">
+              <h1>Gestión de Productos</h1>
+              <button className="btn-primary" onClick={() => handleMenuClick("productos", "agregar")}>
+                ➕ Agregar Producto
+              </button>
+            </div>
+
+            <div className="table-container">
+              <div className="table-filters">
+                <input type="text" placeholder="Buscar productos..." className="search-input" />
+                <select className="filter-select">
+                  <option>Todas las categorías</option>
+                  <option>Electrónicos</option>
+                  <option>Ropa</option>
+                  <option>Hogar</option>
+                </select>
+              </div>
+
+              <div className="data-table">
+                <div className="table-header">
+                  <span>ID</span>
+                  <span>Nombre</span>
+                  <span>Categoría</span>
+                  <span>Precio</span>
+                  <span>Stock</span>
+                  <span>Estado</span>
+                  <span>Acciones</span>
+                </div>
+                <div className="table-row">
+                  <span>#001</span>
+                  <span>iPhone 15 Pro</span>
+                  <span>Electrónicos</span>
+                  <span>$999.99</span>
+                  <span>25</span>
+                  <span className="status-badge status-active">Activo</span>
+                  <span className="table-actions">
+                    <button className="btn-icon" aria-label="Editar producto">
+                      ✏️
+                    </button>
+                    <button className="btn-icon" aria-label="Eliminar producto">
+                      🗑️
+                    </button>
+                  </span>
+                </div>
+                <div className="table-row">
+                  <span>#002</span>
+                  <span>MacBook Air M2</span>
+                  <span>Electrónicos</span>
+                  <span>$1,299.99</span>
+                  <span>12</span>
+                  <span className="status-badge status-active">Activo</span>
+                  <span className="table-actions">
+                    <button className="btn-icon" aria-label="Editar producto">
+                      ✏️
+                    </button>
+                    <button className="btn-icon" aria-label="Eliminar producto">
+                      🗑️
+                    </button>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )
+
+      case "usuarios-crear":
+        return (
+          <div className="content-section">
+            <div className="section-header">
+              <h1>Crear Nuevo Usuario</h1>
+            </div>
+
+            <div className="form-container">
+              <form className="admin-form">
+                <div className="form-grid">
+                  <div className="form-group">
+                    <label htmlFor="nombre">Nombre Completo</label>
+                    <input type="text" id="nombre" placeholder="Ingrese el nombre completo" required />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="email">Email</label>
+                    <input type="email" id="email" placeholder="usuario@email.com" required />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="password">Contraseña</label>
+                    <input type="password" id="password" placeholder="Contraseña segura" required />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="rol">Rol</label>
+                    <select id="rol" required>
+                      <option value="">Seleccionar rol</option>
+                      <option value="USER">Usuario</option>
+                      <option value="ADMIN">Administrador</option>
+                    </select>
+                  </div>
+                </div>
+                <div className="form-actions">
+                  <button type="button" className="btn-secondary" onClick={() => handleMenuClick("usuarios", "listar")}>
+                    Cancelar
+                  </button>
+                  <button type="submit" className="btn-primary">
+                    Crear Usuario
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )
+
+      default:
+        return (
+          <div className="content-section">
+            <div className="welcome-header">
+              <h1>Sección en Desarrollo</h1>
+              <p>Esta sección está siendo desarrollada. Pronto estará disponible.</p>
+            </div>
+          </div>
+        )
+    }
+  }
+
+  return (
+    <div className="admin-dashboard">
+      <AdminSidebar
+        nombre={nombre}
+        activeSection={activeSection}
+        activeSubSection={activeSubSection}
+        sidebarCollapsed={sidebarCollapsed}
+        setSidebarCollapsed={setSidebarCollapsed}
+        onMenuClick={handleMenuClick}
+        onLogout={handleLogout}
+      />
+
+      {/* Main Content */}
+      <main className="admin-main-content">
+        <header className="admin-top-header">
+          <div className="header-left">
+            <h2>Panel de Administración</h2>
+          </div>
+          <div className="header-right">
+            <div className="admin-info">
+              <div className="admin-avatar">{nombre.charAt(0)}</div>
+              <div className="admin-details">
+                <span className="admin-name">Admin {nombre}</span>
+                <span className="admin-role">Administrador</span>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <div className="admin-content-wrapper">{renderContent()}</div>
+      </main>
+    </div>
+  )
+}
+
+export default AdminPanel
