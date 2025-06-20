@@ -1,0 +1,408 @@
+/* Variables CSS para consistencia */
+:root {
+  --listar-pedidos-color-primary: #000000;
+  --listar-pedidos-color-secondary: #666666;
+  --listar-pedidos-color-background: #ffffff;
+  --listar-pedidos-color-surface: #fafafa;
+  --listar-pedidos-color-border: #e5e5e5;
+  --listar-pedidos-color-border-hover: #d4d4d4;
+  --listar-pedidos-color-success: #22c55e;
+  --listar-pedidos-color-danger: #ef4444;
+  --listar-pedidos-color-warning: #f59e0b;
+  --listar-pedidos-color-info: #3b82f6;
+  --listar-pedidos-color-pending: #f59e0b;
+  --listar-pedidos-color-processing: #3b82f6;
+  --listar-pedidos-color-shipped: #8b5cf6;
+  --listar-pedidos-color-delivered: #22c55e;
+  --listar-pedidos-color-cancelled: #ef4444;
+  --listar-pedidos-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --listar-pedidos-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --listar-pedidos-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --listar-pedidos-radius-sm: 4px;
+  --listar-pedidos-radius-md: 8px;
+  --listar-pedidos-radius-lg: 12px;
+  --listar-pedidos-transition-fast: 0.15s ease-in-out;
+  --listar-pedidos-transition-normal: 0.3s ease-in-out;
+  --listar-pedidos-transition-slow: 0.5s ease-in-out;
+}
+
+/* Container principal */
+.listar-pedidos-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: var(--listar-pedidos-color-background);
+  min-height: 100vh;
+}
+
+/* Header section */
+.listar-pedidos-header-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--listar-pedidos-color-border);
+}
+
+.listar-pedidos-title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.listar-pedidos-title-icon {
+  width: 2rem;
+  height: 2rem;
+  color: var(--listar-pedidos-color-primary);
+  transition: transform var(--listar-pedidos-transition-fast);
+}
+
+.listar-pedidos-page-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--listar-pedidos-color-primary);
+  margin: 0;
+  letter-spacing: -0.025em;
+}
+
+.listar-pedidos-stats-badge {
+  background-color: var(--listar-pedidos-color-surface);
+  color: var(--listar-pedidos-color-secondary);
+  padding: 0.5rem 1rem;
+  border-radius: var(--listar-pedidos-radius-md);
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: 1px solid var(--listar-pedidos-color-border);
+  transition: all var(--listar-pedidos-transition-fast);
+}
+
+/* Loading states */
+.listar-pedidos-loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  gap: 1rem;
+}
+
+.listar-pedidos-loading-spinner {
+  width: 2rem;
+  height: 2rem;
+  border: 2px solid var(--listar-pedidos-color-border);
+  border-top: 2px solid var(--listar-pedidos-color-primary);
+  border-radius: 50%;
+  animation: listar-pedidos-spin 1s linear infinite;
+}
+
+.listar-pedidos-loading-text {
+  color: var(--listar-pedidos-color-secondary);
+  font-size: 1rem;
+  margin: 0;
+}
+
+@keyframes listar-pedidos-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Table container */
+.listar-pedidos-table-container {
+  background-color: var(--listar-pedidos-color-background);
+  border-radius: var(--listar-pedidos-radius-lg);
+  box-shadow: var(--listar-pedidos-shadow-md);
+  border: 1px solid var(--listar-pedidos-color-border);
+  overflow: hidden;
+  transition: box-shadow var(--listar-pedidos-transition-normal);
+}
+
+.listar-pedidos-table-container:hover {
+  box-shadow: var(--listar-pedidos-shadow-lg);
+}
+
+.listar-pedidos-table-wrapper {
+  overflow-x: auto;
+}
+
+/* Table styles */
+.listar-pedidos-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--listar-pedidos-color-background);
+}
+
+.listar-pedidos-tabla thead {
+  background-color: var(--listar-pedidos-color-surface);
+  border-bottom: 2px solid var(--listar-pedidos-color-border);
+}
+
+.listar-pedidos-tabla th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: var(--listar-pedidos-color-primary);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--listar-pedidos-color-border);
+}
+
+.listar-pedidos-tabla tbody tr {
+  transition: all var(--listar-pedidos-transition-fast);
+  border-bottom: 1px solid var(--listar-pedidos-color-border);
+}
+
+.listar-pedidos-tabla tbody tr:hover {
+  background-color: var(--listar-pedidos-color-surface);
+  transform: translateY(-1px);
+  box-shadow: var(--listar-pedidos-shadow-sm);
+}
+
+.listar-pedidos-tabla tbody tr:last-child {
+  border-bottom: none;
+}
+
+.listar-pedidos-tabla td {
+  padding: 1rem;
+  vertical-align: middle;
+  color: var(--listar-pedidos-color-secondary);
+  font-size: 0.875rem;
+}
+
+/* Cell specific styles */
+.listar-pedidos-id-cell {
+  font-weight: 600;
+  color: var(--listar-pedidos-color-primary);
+  font-family: "Courier New", monospace;
+}
+
+.listar-pedidos-total-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.listar-pedidos-currency-icon {
+  width: 1rem;
+  height: 1rem;
+  color: var(--listar-pedidos-color-success);
+}
+
+.listar-pedidos-total-amount {
+  font-weight: 600;
+  color: var(--listar-pedidos-color-primary);
+  font-size: 1rem;
+}
+
+.listar-pedidos-date-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.listar-pedidos-date-icon {
+  width: 1rem;
+  height: 1rem;
+  color: var(--listar-pedidos-color-secondary);
+}
+
+.listar-pedidos-date-text {
+  font-size: 0.875rem;
+}
+
+/* Status badges */
+.listar-pedidos-status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--listar-pedidos-radius-sm);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all var(--listar-pedidos-transition-fast);
+}
+
+.listar-pedidos-status-badge.status-pending {
+  background-color: #fef3c7;
+  color: var(--listar-pedidos-color-pending);
+  border: 1px solid #fde68a;
+}
+
+.listar-pedidos-status-badge.status-processing {
+  background-color: #dbeafe;
+  color: var(--listar-pedidos-color-processing);
+  border: 1px solid #bfdbfe;
+}
+
+.listar-pedidos-status-badge.status-shipped {
+  background-color: #ede9fe;
+  color: var(--listar-pedidos-color-shipped);
+  border: 1px solid #ddd6fe;
+}
+
+.listar-pedidos-status-badge.status-delivered {
+  background-color: #dcfce7;
+  color: var(--listar-pedidos-color-delivered);
+  border: 1px solid #bbf7d0;
+}
+
+.listar-pedidos-status-badge.status-cancelled {
+  background-color: #fef2f2;
+  color: var(--listar-pedidos-color-cancelled);
+  border: 1px solid #fecaca;
+}
+
+.listar-pedidos-status-badge.status-default {
+  background-color: var(--listar-pedidos-color-surface);
+  color: var(--listar-pedidos-color-secondary);
+  border: 1px solid var(--listar-pedidos-color-border);
+}
+
+/* Actions */
+.listar-pedidos-actions-cell {
+  text-align: center;
+}
+
+.listar-pedidos-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid var(--listar-pedidos-color-border);
+  border-radius: var(--listar-pedidos-radius-md);
+  background-color: var(--listar-pedidos-color-background);
+  color: var(--listar-pedidos-color-secondary);
+  cursor: pointer;
+  transition: all var(--listar-pedidos-transition-fast);
+  text-decoration: none;
+}
+
+.listar-pedidos-action-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--listar-pedidos-shadow-md);
+}
+
+.listar-pedidos-view-btn:hover {
+  background-color: var(--listar-pedidos-color-primary);
+  color: var(--listar-pedidos-color-background);
+  border-color: var(--listar-pedidos-color-primary);
+}
+
+.listar-pedidos-btn-icon {
+  width: 1.125rem;
+  height: 1.125rem;
+  transition: transform var(--listar-pedidos-transition-fast);
+}
+
+.listar-pedidos-action-btn:hover .listar-pedidos-btn-icon {
+  transform: scale(1.15);
+}
+
+/* Empty state */
+.listar-pedidos-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.listar-pedidos-empty-icon {
+  width: 4rem;
+  height: 4rem;
+  color: var(--listar-pedidos-color-secondary);
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.listar-pedidos-empty-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--listar-pedidos-color-primary);
+  margin: 0 0 0.5rem 0;
+}
+
+.listar-pedidos-empty-description {
+  color: var(--listar-pedidos-color-secondary);
+  font-size: 1rem;
+  margin: 0;
+  max-width: 400px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .listar-pedidos-container {
+    padding: 1rem;
+  }
+
+  .listar-pedidos-header-section {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .listar-pedidos-page-title {
+    font-size: 1.5rem;
+  }
+
+  .listar-pedidos-tabla th,
+  .listar-pedidos-tabla td {
+    padding: 0.75rem 0.5rem;
+  }
+
+  .listar-pedidos-action-btn {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+
+  .listar-pedidos-btn-icon {
+    width: 1rem;
+    height: 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .listar-pedidos-tabla th:nth-child(4),
+  .listar-pedidos-tabla td:nth-child(4) {
+    display: none;
+  }
+
+  .listar-pedidos-total-wrapper,
+  .listar-pedidos-date-wrapper {
+    flex-direction: column;
+    gap: 0.25rem;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .listar-pedidos-tabla th:nth-child(3),
+  .listar-pedidos-tabla td:nth-child(3) {
+    display: none;
+  }
+}
+
+/* Smooth animations */
+* {
+  transition: color var(--listar-pedidos-transition-fast), background-color var(--listar-pedidos-transition-fast),
+    border-color var(--listar-pedidos-transition-fast), transform var(--listar-pedidos-transition-fast), box-shadow
+    var(--listar-pedidos-transition-fast);
+}
+
+/* Focus states for accessibility */
+.listar-pedidos-action-btn:focus {
+  outline: 2px solid var(--listar-pedidos-color-primary);
+  outline-offset: 2px;
+}
+
+.listar-pedidos-action-btn:focus:not(:focus-visible) {
+  outline: none;
+}

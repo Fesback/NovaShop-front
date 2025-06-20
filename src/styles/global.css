@@ -1,0 +1,59 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f9f9f9;
+  }
+  
+
+
+  /* Estados */
+  .loading, .error {
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.2rem;
+  }
+  
+  .error {
+    color: red;
+  }
+
+  
+ 
+
+  /* Botones de navegación */
+.nav-button {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-left: 1rem;
+    font-family: inherit;
+  }
+  
+  .cta-button {
+    display: inline-block;
+    background: #007bff;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 1rem;
+    transition: background 0.3s;
+  }
+  
+  .cta-button:hover {
+    background: #0056b3;
+  }
+  
+  .user-welcome {
+    text-align: center;
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+  }
+
+
+
+  
