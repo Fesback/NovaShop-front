@@ -30,6 +30,13 @@ import EditarCategoria from "./pages/admin/categorias/EditarCategoria";
 import ListarPedidos from "./pages/admin/pedidos/ListarPedidos";
 import DetallePedidos from "./pages/admin/pedidos/DetallePedidos";
 
+//Usuarios ADMIN
+import ListarUsuarios from "./pages/admin/usuarios/ListarUsuarios";
+import CrearUsuario from "./pages/admin/usuarios/CrearUsuario";
+import EditarUsuario from "./pages/admin/usuarios/EditarUsuario";
+
+import DashboardHome from "./pages/admin/DashboardHome";
+
 // Componente que encapsula las rutas + lógica de ocultar el Navbar
 function AppContent() {
   const location = useLocation();
@@ -74,6 +81,8 @@ function AppContent() {
             </ProtectedRoute>
           }
         >
+          {/* DASHBOARD del Admin */}
+          <Route path="dashboard" element={<DashboardHome />} />
           {/*  PRODUCTOS del Admin */}
           <Route path="productos/listar" element={<ProductoList />} />
           <Route path="productos/agregar" element={<AgregarProducto />} />
@@ -85,6 +94,10 @@ function AppContent() {
           {/* PEDIDOS del Admin */}
           <Route path="pedidos/listar" element={<ListarPedidos />} />
           <Route path="pedidos/detalle/:id" element={<DetallePedidos />} />
+          {/* USUARIOS del Admin */}
+          <Route path="usuarios/listar" element={<ListarUsuarios />} />
+          <Route path="usuarios/crear" element={<CrearUsuario />} />
+          <Route path="usuarios/editar/:id" element={<EditarUsuario />} />
         </Route>
 
       </Routes>

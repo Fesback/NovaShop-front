@@ -18,8 +18,7 @@ function AdminSidebar({ sidebarCollapsed, setSidebarCollapsed, onLogout }) {
       label: "Dashboard",
       icon: "📊",
       subItems: [
-        { id: "analytics", label: "Analytics", icon: "📈", path: "/admin/dashboard/analytics" },
-        { id: "mainpanel", label: "Panel Principal", icon: "🏠", path: "/admin/dashboard/mainpanel" },
+        { id: "dashboard", label: "Panel Principal", icon: "🏠", path: "/admin/dashboard" },
       ],
     },
     {
@@ -56,8 +55,6 @@ function AdminSidebar({ sidebarCollapsed, setSidebarCollapsed, onLogout }) {
       subItems: [
         { id: "listar", label: "Listar", icon: "📋", path: "/admin/usuarios/listar" },
         { id: "crear", label: "Crear Usuario", icon: "👤", path: "/admin/usuarios/crear" },
-        { id: "roles", label: "Asignar Roles", icon: "🔐", path: "/admin/usuarios/roles" },
-        { id: "perfil", label: "Perfil", icon: "⚙️", path: "/admin/usuarios/perfil" },
       ],
     },
     {
