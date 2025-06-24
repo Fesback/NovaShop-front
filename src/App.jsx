@@ -36,6 +36,8 @@ import CrearUsuario from "./pages/admin/usuarios/CrearUsuario";
 import EditarUsuario from "./pages/admin/usuarios/EditarUsuario";
 
 import DashboardHome from "./pages/admin/DashboardHome";
+import ConfigEnvios from "./pages/admin/configuracion/ConfigEnvios";
+import ConfigPagos from "./pages/admin/configuracion/ConfigPagos";
 
 // Componente que encapsula las rutas + lógica de ocultar el Navbar
 function AppContent() {
@@ -98,6 +100,9 @@ function AppContent() {
           <Route path="usuarios/listar" element={<ListarUsuarios />} />
           <Route path="usuarios/crear" element={<CrearUsuario />} />
           <Route path="usuarios/editar/:id" element={<EditarUsuario />} />
+          {/* CONFIGURACION del Admin */}         
+          <Route path="config/envios" element={<ConfigEnvios />} />
+          <Route path="config/pagos" element={<ConfigPagos />} />
         </Route>
 
       </Routes>
