@@ -4,6 +4,10 @@ import IphoneImage from "../assets/Iphone-Imag-two.png"
 import MackBook from "../assets/MacBook.png"
 import PlayStation from "../assets/PlayStation.png"
 import Airpods from "../assets/airpods.png"
+import Samsung from "../assets/samsung-galaxy-removebg-preview.png"
+import Ipad from "../assets/ipad-pro-preview.png"
+import Iphone from "../assets/iphone-promax-preview.png"
+import MackbookPRO from "../assets/mackbook-pro-preview.png"
 
 function Home() {
 
@@ -77,25 +81,25 @@ function Home() {
     {
       title: "Popular Products",
       subtitle: "Best Sellers",
-      image: "/placeholder.svg?height=300&width=400",
+      image: Iphone,
       link: "/popular",
     },
     {
       title: "iPad Pro",
       subtitle: "Powerful. Portable. Pro.",
-      image: "/placeholder.svg?height=300&width=400",
+      image: Ipad,
       link: "/ipad-pro",
     },
     {
       title: "Samsung Galaxy",
       subtitle: "Innovation Unleashed",
-      image: "/placeholder.svg?height=300&width=400",
+      image: Samsung,
       link: "/samsung",
     },
     {
       title: "MacBook Pro",
       subtitle: "Supercharged for pros",
-      image: "/placeholder.svg?height=300&width=400",
+      image: MackbookPRO,
       link: "/macbook",
     },
   ]
@@ -195,7 +199,7 @@ function Home() {
         </div>
       </section>
 
-      {/* Best Sellers */}
+      {/* Best Sellers - SÚPER SIMPLE */}
       <section className="products-section">
         <div className="section-header">
           <h2 className="section-title">Best Sellers</h2>
@@ -205,7 +209,13 @@ function Home() {
           {featuredProducts.map((product) => (
             <div key={product.id} className="product-card">
               <div className="product-image">
-                <img src={product.image || "/placeholder.svg"} alt={product.name} />
+                <img
+                  src={product.image || "/placeholder.svg"}
+                  alt={product.name}
+                  onError={(e) => {
+                    e.target.src = "/placeholder.svg?height=200&width=200"
+                  }}
+                />
               </div>
               <div className="product-info">
                 <h3 className="product-name">{product.name}</h3>
@@ -217,6 +227,7 @@ function Home() {
           ))}
         </div>
       </section>
+
 
       {/* Brand Sections */}
       <section className="brand-sections">
