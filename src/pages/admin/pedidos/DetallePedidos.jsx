@@ -206,8 +206,8 @@ function DetallePedido() {
               className="detalle-pedidos-status-select"
             >
               <option value="PENDIENTE">PENDIENTE</option>
-              <option value="EN_PROCESO">EN PROCESO</option>
-              <option value="EN_CAMINO">EN CAMINO</option>
+              <option value="PROCESANDO">PROCESANDO</option>
+              <option value="ENVIADO">ENVIADO</option>
               <option value="ENTREGADO">ENTREGADO</option>
               <option value="CANCELADO">CANCELADO</option>
             </select>
