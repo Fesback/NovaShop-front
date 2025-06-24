@@ -12,7 +12,7 @@ function CrearUsuario() {
     email: "",
     direccion: "",
     telefono: "",
-    password: "",
+    contrasena: "",
   })
   const [mensaje, setMensaje] = useState("")
   const [saving, setSaving] = useState(false)
@@ -66,7 +66,7 @@ function CrearUsuario() {
       email: "",
       direccion: "",
       telefono: "",
-      password: "",
+      contrasena: "",
     })
     setMensaje("")
     setTipoMensaje("")
@@ -187,9 +187,9 @@ function CrearUsuario() {
                 <div className="input-wrapper">
                   <input
                     type="password"
-                    id="password"
-                    name="password"
-                    value={form.password}
+                    id="contrasena"
+                    name="contrasena"
+                    value={form.contrasena}
                     onChange={handleChange}
                     className="form-input"
                     placeholder="Ingresa una contraseña segura"
