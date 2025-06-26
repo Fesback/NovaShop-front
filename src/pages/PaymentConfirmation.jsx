@@ -48,7 +48,7 @@ const PaymentConfirmation = () => {
         tokenHash: btoa(token.slice(10, 20)), // Hash parcial seguro
       })
 
-      const response = await axios.get(`http://localhost:8080/api/pdf/boleta/${pedidoId}`, {
+      const response = await axios.get(`http://localhost:8081/api/facturacion/boleta/${pedidoId}`, {
         responseType: "blob",
         headers: {
           Authorization: `Bearer ${token}`,
