@@ -113,10 +113,18 @@ const CheckoutPage = () => {
         },
       })
 
+      const pedidoId = response?.data?.idPedido
+      console.log("📦 Pedido creado con ID:", pedidoId)
+
+      if(!pedidoId){
+        alert("⚠️ No se recibió el ID del pedido. No se puede continuar")
+        return
+      }
+
       clearCart()
-      navigate(`/confirmacion-pago?pedidoId=${response.data.id}`, {
+      navigate(`/confirmacion-pago?pedidoId=${pedidoId}`, {
         state: {
-          pedidoId: response.data.id,
+          pedidoId,
           montoTotal: cartTotal,
           items: cartItems,
         },
