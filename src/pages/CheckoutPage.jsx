@@ -127,6 +127,7 @@ const CheckoutPage = () => {
           pedidoId,
           montoTotal: cartTotal,
           items: cartItems,
+          email: formData.email,
         },
       })
     } catch (error) {

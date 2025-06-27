@@ -24,6 +24,28 @@ const PaymentConfirmation = () => {
       })
       setPedidoId(location.state.pedidoId)
     }
+
+      if (location.state?.email && (idFromParams || location.state?.pedidoId)) {
+      const enviarCorreoConAdjunto = async () => {
+        try {
+          const token = localStorage.getItem("token")
+          await axios.post("http://localhost:8082/api/notificaciones/correo-adjunto", {
+            correo: location.state.email,
+            asunto: "Gracias por tu compra",
+            mensaje: "Adjuntamos la boleta de tu compra",
+            pedidoId: idFromParams || location.state.pedidoId,
+            token: token
+          })
+
+          console.log("📧 Correo enviado correctamente")
+        } catch (error) {
+          console.error("❌ Error al enviar correo:", error)
+        }
+      }
+
+      enviarCorreoConAdjunto()
+    }
+
   }, [location, navigate])
 
   const handleDownloadPDF = async () => {
