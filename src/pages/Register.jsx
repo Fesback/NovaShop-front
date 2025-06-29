@@ -34,6 +34,19 @@ function Register() {
       });
 
       if (response.ok) {
+        await fetch("http://localhost:8082/api/notificaciones/correo", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              correo: email,
+              asunto: "🎉 Bienvenido a NovaShop",
+              contenido: "Gracias por registrarte en NovaShop. Estamos felices de tenerte con nosotros.",
+            }),
+          });
+
+
         alert("Registro exitoso, ahora puedes iniciar sesión");
         navigate("/login");
       } else {
