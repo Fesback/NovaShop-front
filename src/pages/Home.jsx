@@ -8,6 +8,14 @@ import Samsung from "../assets/samsung-galaxy-removebg-preview.png"
 import Ipad from "../assets/ipad-pro-preview.png"
 import Iphone from "../assets/iphone-promax-preview.png"
 import MackbookPRO from "../assets/mackbook-pro-preview.png"
+import AirpodsPro from "../assets/airpods2gen-removebg-preview.png"
+import iphone14 from "../assets/Apple-iPhone-14-Pro-removebg-preview.png"
+import Sony from "../assets/sony-x1000xm4-removebg-preview.png"
+import AppleWatch8 from "../assets/AppleWatch8-removebg-preview.png"
+import Bose from "../assets/Bose-removebg-preview.png"
+import GalaxyWatch from "../assets/galaxyWatch-removebg-preview.png"
+import OnePlus from "../assets/OnePlus3-removebg-preview.png"
+import IpadPro from "../assets/ipadpro12-9-removebg-preview.png"
 
 function Home() {
 
@@ -23,56 +31,56 @@ function Home() {
       id: 1,
       name: "Apple iPhone 14 Pro Max",
       price: "$1,099",
-      image: "/placeholder.svg?height=200&width=200",
+      image: iphone14,
       category: "Smartphones",
     },
     {
       id: 2,
       name: "Sony WH-1000XM4",
       price: "$349",
-      image: "/placeholder.svg?height=200&width=200",
+      image: Sony,
       category: "Headphones",
     },
     {
       id: 3,
       name: "Apple Watch Series 8",
       price: "$399",
-      image: "/placeholder.svg?height=200&width=200",
+      image: AppleWatch8,
       category: "Smartwatch",
     },
     {
       id: 4,
       name: "Bose QuietComfort",
       price: "$329",
-      image: "/placeholder.svg?height=200&width=200",
+      image: Bose,
       category: "Headphones",
     },
     {
       id: 5,
       name: "Samsung Galaxy Watch",
       price: "$279",
-      image: "/placeholder.svg?height=200&width=200",
+      image: GalaxyWatch,
       category: "Smartwatch",
     },
     {
       id: 6,
       name: "OnePlus Nord 3",
       price: "$499",
-      image: "/placeholder.svg?height=200&width=200",
+      image: OnePlus,
       category: "Smartphones",
     },
     {
       id: 7,
       name: "AirPods Pro 2nd Gen",
       price: "$249",
-      image: "/placeholder.svg?height=200&width=200",
+      image: AirpodsPro,
       category: "Audio",
     },
     {
       id: 8,
       name: "iPad Pro 12.9",
       price: "$1,099",
-      image: "/placeholder.svg?height=200&width=200",
+      image: IpadPro,
       category: "Tablets",
     },
   ]
@@ -110,28 +118,28 @@ function Home() {
       name: "Apple iPhone 14 Pro Max",
       price: "$899",
       originalPrice: "$1,099",
-      image: "/placeholder.svg?height=150&width=150",
+      image: iphone14,
     },
     {
       id: 2,
       name: "Sony WH-1000XM4",
       price: "$249",
       originalPrice: "$349",
-      image: "/placeholder.svg?height=150&width=150",
+      image: Sony,
     },
     {
       id: 3,
       name: "Apple Watch Series 8",
       price: "$299",
       originalPrice: "$399",
-      image: "/placeholder.svg?height=150&width=150",
+      image: AppleWatch8,
     },
     {
       id: 4,
       name: "iPad Pro 12.9",
       price: "$899",
       originalPrice: "$1,099",
-      image: "/placeholder.svg?height=150&width=150",
+      image: IpadPro,
     },
   ]
 
@@ -142,8 +150,8 @@ function Home() {
         <div className="hero-content">
           <div className="hero-text">
             <h1 className="hero-title">iPhone 14 Pro</h1>
-            <p className="hero-subtitle">Pro. Beyond.</p>
-            <button className="hero-btn">Shop Now</button>
+            <p className="hero-subtitle">Pro. Más allá de.</p>
+            <button className="hero-btn">Comprar ahora!</button>
           </div>
           <div className="hero-image">
             <img src={IphoneImage} alt="iPhone 14 Pro" />
@@ -158,8 +166,7 @@ function Home() {
             <div className="showcase-content">
               <h3>Playstation 5</h3>
               <p>
-                Incredibly powerful CPUs, GPUs, and an SSD with integrated I/O will redefine your PlayStation
-                experience.
+                CPU, GPU y un SSD con E/S integradas increíblemente potentes redefinirán tu experiencia en PlayStation.
               </p>
             </div>
             <img src={PlayStation} alt="PlayStation 5" />
@@ -168,16 +175,16 @@ function Home() {
             <div className="showcase-content">
               <h3>MacBook Air</h3>
               <p>
-                The new 15-inch MacBook Air makes room for more of what you love with a spacious Liquid Retina display.
+                La nueva MacBook Air de 15 pulgadas te deja espacio para más de lo que amas con una espaciosa pantalla Liquid Retina.
               </p>
-              <button className="showcase-btn">Shop Now</button>
+              <button className="showcase-btn">Comprar ahora!</button>
             </div>
             <img src={MackBook} alt="MacBook Air" />
           </div>
           <div className="showcase-item small">
             <div className="showcase-content">
               <h3>Apple AirPods Max</h3>
-              <p>Computational audio. Listen, it's powerful</p>
+              <p>Audio computacional. Escuchen, es potente.</p>
             </div>
             <img src={Airpods} alt="Apple AirPods Max" />
           </div>
@@ -186,7 +193,7 @@ function Home() {
 
       {/* Categories */}
       <section className="categories-section">
-        <h2 className="section-title">Browse By Category</h2>
+        <h2 className="section-title">Buscar por Categoria</h2>
         <div className="categories-grid">
           {categories.map((category) => (
             <Link to={`/categoria/${category.slug}`} key={category.id} className="category-item">
@@ -199,29 +206,32 @@ function Home() {
         </div>
       </section>
 
-      {/* Best Sellers - SÚPER SIMPLE */}
+      {/* Best Sellers */}
       <section className="products-section">
         <div className="section-header">
-          <h2 className="section-title">Best Sellers</h2>
-          <p className="section-subtitle">Popular Products</p>
+          <h2 className="section-title">Los mas vendidos</h2>
+          <p className="section-subtitle">Productos populares</p>
         </div>
         <div className="products-grid">
           {featuredProducts.map((product) => (
             <div key={product.id} className="product-card">
               <div className="product-image">
                 <img
-                  src={product.image || "/placeholder.svg"}
+                  src={product.image}
                   alt={product.name}
                   onError={(e) => {
-                    e.target.src = "/placeholder.svg?height=200&width=200"
-                  }}
+      e.target.src = "/placeholder.svg";
+      e.target.alt = "Imagen no disponible";
+      console.error(`Error loading image: ${product.image}`);
+    }}
+                  
                 />
               </div>
               <div className="product-info">
                 <h3 className="product-name">{product.name}</h3>
                 <p className="product-category">{product.category}</p>
                 <div className="product-price">{product.price}</div>
-                <button className="product-btn">Add to Cart</button>
+                <button className="product-btn">Agregar al carrito</button>
               </div>
             </div>
           ))}
@@ -251,7 +261,7 @@ function Home() {
 
       {/* Discounts Section */}
       <section className="discounts-section">
-        <h2 className="section-title">Discounts up to -50%</h2>
+        <h2 className="section-title">Descuentos de -50%</h2>
         <div className="discounts-grid">
           {saleProducts.map((product) => (
             <div key={product.id} className="discount-card">
@@ -264,7 +274,7 @@ function Home() {
                   <span className="discount-price">{product.price}</span>
                   <span className="original-price">{product.originalPrice}</span>
                 </div>
-                <button className="discount-btn">Add to Cart</button>
+                <button className="discount-btn">Agregar al carrito</button>
               </div>
             </div>
           ))}
@@ -275,11 +285,11 @@ function Home() {
         <section className="sale-banner">
           <div className="sale-content">
             <h2 className="sale-title">
-              Big Summer <span>Sale</span>
+              Gran Verano de <span>Rebajas</span>
             </h2>
-            <p className="sale-subtitle">Up to 50% off on selected items</p>
+            <p className="sale-subtitle">hasta 50% de descuento en articulos seleccionados</p>
           <div className="home-button">
-            <button className="sale-btn">Shop Now</button>
+            <button className="sale-btn">Comprar ahora!</button>
           </div>
         </div>
       </section>
