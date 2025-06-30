@@ -23,20 +23,20 @@ function CategoryPage() {
 
   const navigate = useNavigate()
 
-  // Estados principales
+  
   const [products, setProducts] = useState([])
   const [filteredProducts, setFilteredProducts] = useState([])
   const [loading, setLoading] = useState(true)
   const [viewMode, setViewMode] = useState("grid")
 
-  // Estados de filtros
+ 
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedBrands, setSelectedBrands] = useState([])
   const [priceRange, setPriceRange] = useState([0, 10000])
   const [sortBy, setSortBy] = useState("popularity")
   const [showFilters, setShowFilters] = useState(false)
 
-  // Estados de UI
+ 
   const [currentPage, setCurrentPage] = useState(1)
   const [expandedFilters, setExpandedFilters] = useState({
     brand: true,
@@ -110,7 +110,6 @@ function CategoryPage() {
   useEffect(() => {
     let filtered = [...products]
 
-    // Filtro por búsqueda
     if (searchTerm) {
       filtered = filtered.filter(
         (product) =>
@@ -151,7 +150,7 @@ function CategoryPage() {
         break
       case "popularity":
       default:
-        // Mantener orden original o por popularidad
+      
         break
     }
 
