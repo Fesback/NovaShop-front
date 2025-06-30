@@ -80,35 +80,35 @@ const PaymentConfirmation = () => {
         timeout: 15000, // 15 segundos máximo
       })
 
-      // Validación de tipo MIME estricta
+      
       if (!response.headers["content-type"]?.includes("pdf")) {
         throw new Error(`🚫 Formato inválido: ${response.headers["content-type"]}`)
       }
 
-      // Mecanismo de descarga híbrido
+      
       const blob = new Blob([response.data], { type: "application/pdf" })
       const downloadUrl = window.URL.createObjectURL(blob)
 
-      // Método 1: Iframe para Chrome/Firefox
+      
       const iframe = document.createElement("iframe")
       iframe.style.display = "none"
       iframe.src = downloadUrl
       document.body.appendChild(iframe)
 
-      // Método 2: Enlace tradicional para Safari/Edge
+      
       setTimeout(() => {
         const link = document.createElement("a")
         link.href = downloadUrl
         link.download = `boleta_${pedidoId}_${Date.now()}.pdf`
         link.click()
 
-        // Limpieza agresiva
+        
         window.URL.revokeObjectURL(downloadUrl)
         iframe.remove()
         link.remove()
       }, 1000)
     } catch (error) {
-      // Sistema de diagnóstico avanzado
+      
       console.error("💥 Error catastrófico:", {
         error,
         networkStatus: navigator.onLine ? "online" : "offline",
